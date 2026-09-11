@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.runique.android.library)
+    alias(libs.plugins.runique.jvm.ktor)
 }
 
 android {
@@ -10,11 +10,11 @@ android {
     defaultConfig {
         minSdk = 24
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        /*testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")*/
     }
 
-    buildTypes {
+    /*buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -29,7 +29,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
+    }*/
 }
 
 dependencies {

@@ -7,6 +7,9 @@ import org.gradle.kotlin.dsl.configure
 import com.example.convention.configureKotlinAndroid
 import com.example.convention.configureBuildTypes
 
+
+//EXAMPLE: use XML
+//plugin applicable to android applications modules(no compose)
 class AndroidApplicationConventionPlugin: Plugin<Project> {
     override fun apply(target: Project) {
         //We do this to not always refer to target
