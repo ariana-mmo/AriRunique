@@ -17,7 +17,7 @@ sealed interface UiText{
 
     @Composable
     fun asString(): String{
-        when(this){
+        return when(this){
             is DynamicString -> value
                                 //because is StringRes      //al arguments optional
             is StringResource -> stringResource(id = id, *args)
@@ -26,7 +26,7 @@ sealed interface UiText{
 
 
     fun asString(context: Context):String{
-        when(this){
+        return when(this){
             is DynamicString -> value
             is StringResource -> context.getString(id, *args)
         }
