@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    // Coil
+// Coil
     implementation(libs.coil.compose)
 
     // Compose
@@ -86,7 +86,6 @@ dependencies {
     // Timber
     implementation(libs.timber)
 
-    //from which feature we can navigate to which other feature
     implementation(projects.core.presentation.designsystem)
     implementation(projects.core.presentation.ui)
     implementation(projects.core.domain)
