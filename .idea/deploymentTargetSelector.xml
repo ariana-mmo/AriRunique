@@ -10,6 +10,14 @@
         <option name="selectionMode" value="DROPDOWN" />
         <DialogSelection />
       </SelectionState>
+      <SelectionState runConfigName="GradientBackgroundPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="IntroScreenPreview">
+        <option name="selectionMode" value="DROPDOWN" />
+        <DialogSelection />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

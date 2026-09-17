@@ -12,7 +12,7 @@ val DarkColorScheme = darkColorScheme(
     //Just define the most important
     primary = RuniqueGreen,
     background = RuniqueBlack,
-    //ex: dialogues
+    //ex: dialogs
     surface = RuniqueDarkGray,
     secondary = RuniqueWhite,
     tertiary = RuniqueWhite,

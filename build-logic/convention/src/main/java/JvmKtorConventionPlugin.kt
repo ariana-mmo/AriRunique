@@ -9,7 +9,6 @@ import com.example.convention.libs
 //import com.plcoding.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.internal.serialize.codecs.core.NodeOwner
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin

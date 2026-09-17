@@ -66,7 +66,7 @@ private fun BuildType.configureDebugBuildType(apiKey: String){
         //they are usually API keys or base URls
         //Api key: no git repository -> no code
         //Base url: points to some kind of "test environment", local server
-    buildConfigField("String", "API KEY", "\"$apiKey\"")
+    buildConfigField("String", "API_KEY", "\"$apiKey\"")
     buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080\"")
 }
 
@@ -74,7 +74,7 @@ private fun BuildType.configureReleaseBuildType(
     commonExtension: CommonExtension<*, *, *, *, *>,
     apiKey: String){
     //
-    buildConfigField("String", "API KEY", "\"$apiKey\"")
+    buildConfigField("String", "API_KEY", "\"$apiKey\"")
     buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080\"")
 
     isMinifyEnabled = true
