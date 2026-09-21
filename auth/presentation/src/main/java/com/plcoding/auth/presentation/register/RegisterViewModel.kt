@@ -25,16 +25,22 @@ class RegisterViewModel(
         //flows that triggers when we change the text
         state.email.textAsFlow()
             .onEach { email ->
+                val isEmailValid = userDataValidator.isEmailValid(email.toString())
                 state = state.copy(
-                    isEmailValid = userDataValidator.isEmailValid(email.toString())
+                    isEmailValid = isEmailValid,
+                    canRegister = isEmailValid && state.passwordValidationState.isValidPassword
+                            && !state.isRegistering
                 )
             }
             .launchIn(viewModelScope)
 
         state.password.textAsFlow()
             .onEach { password ->
+                val passwordValidationState = userDataValidator.validatePassword(password.toString())
                 state = state.copy(
-                    passwordValidationState = userDataValidator.validatePassword(password.toString())
+                    passwordValidationState = passwordValidationState,
+                    canRegister = state.isEmailValid && passwordValidationState.isValidPassword
+                            && !state.isRegistering
                 )
             }
             .launchIn(viewModelScope)
