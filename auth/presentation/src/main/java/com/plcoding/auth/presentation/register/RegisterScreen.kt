@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
@@ -27,15 +28,20 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.plcoding.auth.domain.PasswordValidationState
+import com.plcoding.auth.domain.UserDataValidator
 import com.plcoding.auth.presentation.R
 import com.plcoding.core.presentation.designsystem.CheckIcon
 import com.plcoding.core.presentation.designsystem.CrossIcon
 import com.plcoding.core.presentation.designsystem.EmailIcon
 import com.plcoding.core.presentation.designsystem.Poppins
+import com.plcoding.core.presentation.designsystem.RuniqueDarkRed
 import com.plcoding.core.presentation.designsystem.RuniqueGray
+import com.plcoding.core.presentation.designsystem.RuniqueGreen
 import com.plcoding.core.presentation.designsystem.RuniqueTheme
 import com.plcoding.core.presentation.designsystem.components.GradientBackground
+import com.plcoding.core.presentation.designsystem.components.RuniqueActionButton
 import com.plcoding.core.presentation.designsystem.components.RuniquePasswordTextField
 import com.plcoding.core.presentation.designsystem.components.RuniqueTextField
 import org.koin.androidx.compose.koinViewModel
@@ -72,7 +78,7 @@ private fun RegisterScreen(
                 text = stringResource(id = R.string.create_account),
                 style = MaterialTheme.typography.headlineMedium
             )
-            val annotadedString = buildAnnotatedString {
+            val annotatedString = buildAnnotatedString {
                 withStyle(
                     style = SpanStyle(
                         fontFamily = Poppins,
@@ -96,16 +102,16 @@ private fun RegisterScreen(
                     }
                 }
             }
-            //No duda: se le manda el tag
+            //we send it the tag
             ClickableText(
-                text = annotadedString,
-                //Duda: offset
+                text = annotatedString,
+
                 onClick = { offset ->
-                    annotadedString.getStringAnnotations(
+                    annotatedString.getStringAnnotations(
                         tag = "clickable_text",
                         start = offset,
                         end = offset
-                        //Duda: como definir first or null
+                        //the first that founds, else is null
                     ).firstOrNull()?.let {
                         onAction(RegisterAction.OnLoginClick)
                     }
@@ -133,26 +139,70 @@ private fun RegisterScreen(
                 tittle = stringResource(id = R.string.password),
                 modifier = Modifier.fillMaxWidth()
             )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            PasswordRequirement(
+                text = stringResource(
+                    id = R.string.at_least_x_characters,
+                    UserDataValidator.MIN_PASSWORD_LENGTH
+                ),
+                isValid = state.passwordValidationState.hasMinLength
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+            PasswordRequirement(
+                text = stringResource(id = R.string.at_least_one_number),
+                isValid = state.passwordValidationState.hasNumber
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+            PasswordRequirement(
+                text = stringResource(id = R.string.contains_lowercase_char),
+                isValid = state.passwordValidationState.hasLowerCaseCharacter
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+            PasswordRequirement(
+                text = stringResource(id = R.string.contains_uppercase_char),
+                isValid = state.passwordValidationState.hasUpperCaseCharacter
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+
+            RuniqueActionButton(
+                text = stringResource(R.string.register),
+                isLoading = state.isRegistering,
+                enable = state.canRegister,
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {
+                    onAction(RegisterAction.OnRegisterClick)
+                }
+            )
         }
     }
 }
 
 @Composable
-fun PasswordMetric(
+fun PasswordRequirement(
     text: String,
     isValid: Boolean,
     modifier: Modifier = Modifier
 ){
     Row(
-        modifier = Modifier,
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             imageVector = if(isValid){
                 CheckIcon
             } else {CrossIcon},
-            contentDecription = null,
-            tint =
+            contentDescription = null,
+            tint = if(isValid) RuniqueGreen else RuniqueDarkRed
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = 14.sp,
         )
     }
 }
@@ -165,7 +215,10 @@ private fun ScreenPreview() {
             state = RegisterState(
                 passwordValidationState = PasswordValidationState(
                     hasNumber = true,
-                )
+                    hasMinLength = true,
+                    hasLowerCaseCharacter = true,
+                    hasUpperCaseCharacter = true
+                ),
             ),
             onAction = {}
         )
