@@ -1,0 +1,12 @@
+package com.plcoding.auth.data
+
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@InternalSerializationApi
+@Serializable
+data class RegisterRequest(
+    val email: String,
+    val password: String
+)

@@ -1,5 +1,6 @@
 package com.plcoding.runique
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,7 +11,7 @@ import com.plcoding.auth.presentation.intro.IntroScreenRoot
 import com.plcoding.auth.presentation.register.RegisterScreenRoot
 
 @Composable
-fun navigationRoot(
+fun NavigationRoot(
     //Duda:Diferencia entre el nav y navhost
     navController: NavHostController
 ){
@@ -61,6 +62,9 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController){
                 }
             )
 
+        }
+        composable("login"){
+            Text(text = "Login for now")
         }
     }
 

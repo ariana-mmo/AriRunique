@@ -3,7 +3,7 @@ package com.plcoding.auth.data
 import android.util.Patterns
 import com.plcoding.auth.domain.PatternValidator
 
-//how
+//how jau
 object EmailPatternValidator: PatternValidator{
 
     override fun matches(value: String): Boolean {
