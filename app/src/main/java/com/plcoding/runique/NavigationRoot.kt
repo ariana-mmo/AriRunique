@@ -1,5 +1,6 @@
 package com.plcoding.runique
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -21,6 +22,7 @@ fun NavigationRoot(
         startDestination = "auth"
     ) {
         authGraph(navController)
+        runGraph(navController)
     }
 
 }
@@ -86,4 +88,15 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController){
         }
     }
 
+}
+
+private fun NavGraphBuilder.runGraph(navController: NavHostController){
+    navigation(
+        startDestination = "run_overview",
+        route = "run"
+    ) {
+        composable(route = "run_overview"){
+            Text(text =  "Run overview!")
+        }
+    }
 }

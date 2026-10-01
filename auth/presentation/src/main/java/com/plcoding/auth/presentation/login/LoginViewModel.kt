@@ -10,15 +10,22 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.auth.domain.AuthRepository
+import com.plcoding.auth.domain.UserDataValidator
+import com.plcoding.core.domain.util.DataError
+import com.plcoding.core.domain.util.Result
+import com.plcoding.core.presentation.ui.R
+import com.plcoding.core.presentation.ui.UiText
+import com.plcoding.core.presentation.ui.asUiText
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
     //'
-    private val repository: AuthRepository
+    private val repository: AuthRepository,
+    private val userDataValidator: UserDataValidator
 ): ViewModel() {
 
     var state by mutableStateOf(LoginState())
@@ -28,22 +35,18 @@ class LoginViewModel(
 
     val events = eventChannel.receiveAsFlow()
 
+
     init {
-        state.email.textAsFlow()
-            .onEach { email ->
-                state = state.copy(
+        //either the email or the password changes
+        combine(state.email.textAsFlow(), state.password.textAsFlow()) {email, password ->
+            state = state.copy(
+                //not the real validation here (that could change over time)
+                canLogin = userDataValidator.isEmailValid(
+                    email = email.toString().trim())
+                        && password.isNotEmpty()
+            )
+        }.launchIn(viewModelScope)
 
-                )
-            }
-            .launchIn(viewModelScope)
-
-        state.password.textAsFlow()
-            .onEach { password ->
-                state = state.copy(
-
-                )
-            }
-            .launchIn(viewModelScope)
     }
 
 
@@ -53,6 +56,7 @@ class LoginViewModel(
                LoginAction.OnTogglePasswordVisibilityClick -> {
                    state = state.copy(isPasswordVisible = !state.isPasswordVisible)
                }
+               //everything related to navigation we don't care here
                else -> Unit
            }
     }
@@ -61,12 +65,30 @@ class LoginViewModel(
     private fun login(){
         viewModelScope.launch {
             state = state.copy(isLoggingIn = true)
-
-        }
-        /*val result = repository.login(
+            val result = repository.login(
             email = state.email.text.toString().trim(),
             password = state.password.text.toString()
-        )*/
+        )
+            state = state.copy(isLoggingIn = false)
+
+            //now it interpreter our results.
+            when(result) {
+                //check for specific type of error
+                is Result.Error -> {
+                    if (result.error == DataError.Network.UNAUTHORIZED){
+                        eventChannel.send(LoginEvent.Error(
+                            UiText.StringResource(R.string.error_email_password_incorrect)
+                        ))
+                    } else {
+                        eventChannel.send(LoginEvent.Error(result.error.asUiText()))
+                    }
+                }
+                is Result.Success -> {
+                    eventChannel.send(LoginEvent.LoginSuccess)
+                }
+            }
+        }
+
 
 
     }
