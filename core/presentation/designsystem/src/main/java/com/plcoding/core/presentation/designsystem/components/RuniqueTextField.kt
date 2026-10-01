@@ -50,7 +50,6 @@ fun RuniqueTextField(
     startIcon: ImageVector,
     endIcon: ImageVector?,
     hint: String,
-    //Duda: Cuando pongo el ?
     //tittle: email or password, that thing that show above the text field
     tittle: String?,
     modifier: Modifier = Modifier,
@@ -66,8 +65,7 @@ fun RuniqueTextField(
         modifier = modifier
     ) {
         Row(
-            //Duda: pq modifier y no Modifier
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically

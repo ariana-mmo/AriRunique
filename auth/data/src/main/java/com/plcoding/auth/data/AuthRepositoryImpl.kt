@@ -23,4 +23,18 @@ class AuthRepositoryImpl(
             )
         )
     }
+
+    /*override suspend fun login(email: String, password: String): Result{
+
+        val result =  httpClient.post<LoginRequest, LoginResponse> (
+            route = "/login",
+            body = LoginRequest(
+                email = email,
+                password = password
+            )
+        )
+
+
+        return
+    }*/
 }
