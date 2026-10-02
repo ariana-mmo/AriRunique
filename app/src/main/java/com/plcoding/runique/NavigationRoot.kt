@@ -14,12 +14,13 @@ import com.plcoding.auth.presentation.register.RegisterScreenRoot
 @Composable
 fun NavigationRoot(
     //Duda:Diferencia entre el nav y navhost
-    navController: NavHostController
+    navController: NavHostController,
+    isLoggedIn: Boolean
 ){
     //show the place you are at
     NavHost(
         navController = navController,
-        startDestination = "auth"
+        startDestination = if(isLoggedIn) "run" else "auth"
     ) {
         authGraph(navController)
         runGraph(navController)
