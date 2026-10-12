@@ -26,7 +26,9 @@ internal fun Project.configureAndroidCompose(
             val bom = libs.findLibrary("androidx.compose.bom").get()
             "implementation"(platform(bom))
             "androidTestImplementation"(platform(bom))
-            "debugImplementation"(libs.findLibrary("androidx.compose.ui.tooling.preview").get())
+            // The Preview annotation is available at compile time via ui-tooling-preview,
+            // but Android Studio's renderer needs the full tooling implementation at runtime.
+            "debugImplementation"(libs.findLibrary("androidx.compose.ui.tooling").get())
         }
 
     }
