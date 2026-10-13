@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.bundles.koin)
 
     api(libs.core)
+    implementation(libs.maps.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

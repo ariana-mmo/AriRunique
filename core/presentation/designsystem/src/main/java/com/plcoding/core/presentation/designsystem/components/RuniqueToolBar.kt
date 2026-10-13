@@ -46,13 +46,13 @@ import com.plcoding.core.presentation.designsystem.RuniqueTheme
 fun RuniqueToolbar(
     showBackButton: Boolean,
     title: String,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     menuItems: List<DropDownItem> = emptyList(),
     onMenuItemClick: (Int) -> Unit = {},
     onBlackClick: () -> Unit = {},
     //when we scroll it hides the toolbar
     scrollBehavior:  TopAppBarScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
-    startContent: @Composable () -> Unit?
+    startContent: @Composable () -> Unit? = {}
 ){
     var isDropDownOpen by rememberSaveable() {
         mutableStateOf(false)
