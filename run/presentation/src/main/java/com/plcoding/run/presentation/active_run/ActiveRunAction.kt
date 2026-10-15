@@ -6,7 +6,17 @@ sealed interface ActiveRunAction {
     data object OnFinishRunCLick: ActiveRunAction
 
     data object OnResumeRunClick: ActiveRunAction
-
     data object OnBackClick: ActiveRunAction
 
+    data class SubmitLocationPermissionInfo(
+        val acceptedLocationPermissionInfo: Boolean,
+        val showLocationRationale: Boolean
+    ): ActiveRunAction
+
+    data class SubmitNotificationPermissionInfo(
+        val acceptedNotificationPermissionInfo: Boolean,
+        val showNotificationPermissionRationale: Boolean
+    ): ActiveRunAction
+
+    data object DismissRationaleDialog: ActiveRunAction
 }

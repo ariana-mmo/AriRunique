@@ -1,6 +1,5 @@
-package com.plcoding.core.presentation.designsystem.components
+package com.plcoding.core.presentation.designsystem.components.util
 
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class DropDownItem(
