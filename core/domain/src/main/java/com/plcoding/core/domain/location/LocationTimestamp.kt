@@ -1,4 +1,4 @@
-package com.plcoding.core.location
+package com.plcoding.core.domain.location
 
 import kotlin.time.Duration
 

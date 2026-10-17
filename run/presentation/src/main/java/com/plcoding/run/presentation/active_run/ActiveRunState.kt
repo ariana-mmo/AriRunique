@@ -1,6 +1,6 @@
 package com.plcoding.run.presentation.active_run
 
-import com.plcoding.core.location.Location
+import com.plcoding.core.domain.location.Location
 import com.plcoding.run.domain.RunData
 import kotlin.time.Duration
 
