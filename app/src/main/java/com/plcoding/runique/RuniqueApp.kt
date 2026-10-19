@@ -6,7 +6,7 @@ import com.plcoding.auth.data.di.authDataModule
 import com.plcoding.auth.presentation.di.authViewModelModule
 import com.plcoding.core.data.di.coreDataModule
 import com.plcoding.run.location.di.locationModule
-import com.plcoding.run.presentation.di.runViewModelModule
+import com.plcoding.run.presentation.di.runPresentationModule
 import com.plcoding.runique.di.appModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -35,7 +35,7 @@ class RuniqueApp: Application() {
                 authViewModelModule,
                 appModule,
                 coreDataModule,
-                runViewModelModule,
+                runPresentationModule,
                 locationModule
             )
         }
